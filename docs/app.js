@@ -622,6 +622,13 @@ async function start() {
       renderCompetitionOptions();
       renderResults();
     });
+    const competitionFilter = $("#competition-filter");
+    document.addEventListener("click", (event) => {
+      if (!competitionFilter.contains(event.target)) competitionFilter.open = false;
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") competitionFilter.open = false;
+    });
     renderDirectory();
   } catch (error) {
     $("#dataset-note").textContent = "Dataset not built yet";
