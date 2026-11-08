@@ -5,11 +5,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "figure-skating-bias"
 version = "0.1.0"
-description = "Reproducible analysis of judging patterns in women's figure skating"
+description = "Reproducible analysis of judging patterns across figure skating disciplines"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "numpy>=1.26,<3",
+    "pymupdf>=1.24",
     "polars>=1.0",
     "scipy>=1.11",
     "statsmodels>=0.14",
