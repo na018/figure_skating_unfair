@@ -11,6 +11,8 @@ This GitHub Pages site is the interactive companion: browse official protocols,
 inspect judge marks and totals, filter competitions, and compare skaters or teams.
 Portraits appear only when their reuse license and attribution requirements permit
 publication, so some entries use initials instead of an image.
+When comparing two entries, the competition selector and results are limited to
+competitions and performances shared by both.
 
 This is a static website. It runs in a visitor's browser and reads generated JSON
 files from `docs/data/`; it does not use a server, API key, or hosted database.

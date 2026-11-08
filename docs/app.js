@@ -135,6 +135,20 @@ async function selectEntry(entryId, isComparison = false) {
     const detail = await loadEntry(entry);
     if (isComparison) {
       state.comparison = detail;
+      const sharedCompetitions = new Set(
+        detail.performances.map((performance) => performance.competition_id),
+      );
+      const selectedSharedCompetitions = [...state.selectedCompetitions]
+        .filter((competitionId) => sharedCompetitions.has(competitionId));
+      state.selectedCompetitions = new Set(
+        selectedSharedCompetitions.length
+          ? selectedSharedCompetitions
+          : [...sharedCompetitions].filter((competitionId) => (
+            state.primary?.performances.some(
+              (performance) => performance.competition_id === competitionId,
+            )
+          )),
+      );
       renderCompetitionOptions();
     } else {
       state.primary = detail;
@@ -160,12 +174,25 @@ function renderCompetitionOptions() {
     $("#competition-label").textContent = "Choose competitions";
     return;
   }
-  const competitions = new Map();
-  for (const entry of [state.primary, state.comparison]) {
-    for (const performance of entry?.performances || []) {
-      competitions.set(performance.competition_id, performance.competition_name);
+  const competitionsByEntry = [state.primary, state.comparison]
+    .filter(Boolean)
+    .map((entry) => new Map(
+      entry.performances.map((performance) => [
+        performance.competition_id,
+        performance.competition_name,
+      ]),
+    ));
+  const competitions = new Map(competitionsByEntry[0]);
+  if (state.comparison) {
+    for (const competitionId of competitions.keys()) {
+      if (!competitionsByEntry[1].has(competitionId)) {
+        competitions.delete(competitionId);
+      }
     }
   }
+  state.selectedCompetitions = new Set(
+    [...state.selectedCompetitions].filter((id) => competitions.has(id)),
+  );
   container.innerHTML = [...competitions.entries()]
     .sort((left, right) => left[1].localeCompare(right[1]))
     .map(([id, name]) => `
@@ -461,28 +488,19 @@ function renderResults() {
   if (state.comparison) {
     const comparisonPerformances = filteredPerformances(state.comparison);
     const secondByKey = new Map(comparisonPerformances.map((performance) => [matchingKey(performance), performance]));
-    const matchedKeys = new Set();
-    const comparisonRows = primaryPerformances.map((performance) => {
+    const comparisonRows = primaryPerformances.flatMap((performance) => {
       const key = matchingKey(performance);
       const match = secondByKey.get(key);
-      if (match) matchedKeys.add(key);
-      return [performance, match];
+      if (!match) return [];
+      return [[performance, match]];
     });
-    const unmatchedComparison = comparisonPerformances.filter(
-      (performance) => !matchedKeys.has(matchingKey(performance)),
-    );
-    const matchedCount = comparisonRows.filter(([, second]) => second).length;
-    const unmatchedPrimaryCount = comparisonRows.length - matchedCount;
-    html += `<div class="selected-skater">${avatar(state.comparison)}<div><h3>Compared with ${escapeHtml(state.comparison.name)}</h3><p>${escapeHtml(state.comparison.nationality)} · ${matchedCount} shared segments · ${unmatchedPrimaryCount} unmatched for ${escapeHtml(state.primary.name)} · ${unmatchedComparison.length} unmatched for ${escapeHtml(state.comparison.name)}</p>${portraitCredit(state.comparison)}</div></div>`;
-    const allRows = [
-      ...comparisonRows,
-      ...unmatchedComparison.map((performance) => [null, performance]),
-    ];
+    html += `<div class="selected-skater">${avatar(state.comparison)}<div><h3>Compared with ${escapeHtml(state.comparison.name)}</h3><p>${escapeHtml(state.comparison.nationality)} · ${comparisonRows.length} shared performances</p>${portraitCredit(state.comparison)}</div></div>`;
+    const allRows = comparisonRows;
     html += allRows.map(([first, second]) => (
       comparePerformanceCard(first, second, state.primary, state.comparison)
     )).join("");
     if (!allRows.length) {
-      html += '<div class="empty-state"><p>No performances match the selected competitions for either skater.</p></div>';
+      html += '<div class="empty-state"><p>No shared performances match the selected competitions.</p></div>';
     }
   } else {
     if (primaryPerformances.length) {
