@@ -20,6 +20,9 @@
 }
 
 body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
   margin: 0;
   background:
     radial-gradient(ellipse at 86% 9%, rgb(204 231 247 / 56%), transparent 30rem),
@@ -190,6 +193,8 @@ button {
 }
 
 main {
+  width: 100%;
+  flex: 1 0 auto;
   max-width: 1240px;
   margin: 0 auto;
   padding: 22px 32px 80px;
@@ -1093,6 +1098,8 @@ h1 {
 
 footer {
   display: flex;
+  width: 100%;
+  flex-shrink: 0;
   justify-content: space-between;
   gap: 15px;
   max-width: 1240px;

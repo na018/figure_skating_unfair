@@ -17,6 +17,13 @@ competitions and performances shared by both.
 This is a static website. It runs in a visitor's browser and reads generated JSON
 files from `docs/data/`; it does not use a server, API key, or hosted database.
 
+## Copyright and reuse
+
+Original project materials owned by Nadin Katrin Apel are all rights reserved;
+see the project [copyright notice](../LICENSE) and the website's
+[copyright and reuse page](./license.html). Third-party materials, including
+official skating data and photographs, may have separate rights and licenses.
+
 ## Program calculator
 
 The program calculator compares two hypothetical segment scores using the singles
