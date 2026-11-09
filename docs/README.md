@@ -17,6 +17,28 @@ competitions and performances shared by both.
 This is a static website. It runs in a visitor's browser and reads generated JSON
 files from `docs/data/`; it does not use a server, API key, or hosted database.
 
+## Program calculator
+
+The program calculator compares two hypothetical segment scores using the singles
+and pairs scale in ISU Communication 2786 (updated June 2, 2026). Select an
+element by its ISU code and a GOE grade; its base and GOE values come directly
+from the published table. Clean jump combinations and sequences can be entered
+as codes joined with `+` (e.g. `3Lz+3T` or `3F+Eu+3S`); GOE is based on the
+most difficult jump. For combinations, technical calls, quintuple jumps, bonuses
+and repeated-jump reductions are not supported. The estimate appears once an
+element is selected, with a default GOE of zero. PCS is excluded until all three
+already-averaged marks and the applicable factor are entered. The calculator
+rounds each factored component separately and adds it to the technical score.
+It subtracts the number of falls multiplied by the per-fall deduction (default
+1 point). This fixed-rate estimate does not apply other deductions or escalating
+fall penalties automatically.
+
+This is a planning estimate, not an official scoring system: users must apply the
+relevant season's technical calls, program requirements, bonuses, deductions,
+and component factors themselves. Bonus and repeated-jump reductions are not
+calculated. A single selected GOE is not a panel's trimmed average. Check the
+linked ISU rules. Calculator inputs are not saved after leaving the page.
+
 ## Build or refresh the site data
 
 From the project root, with the project virtual environment active:
@@ -67,7 +89,8 @@ python -m figure_skating_bias.site_export --portraits data/portraits.json
 
 The welcome dialog uses Nadin's profile photo and links to her Buy Me a Coffee,
 LinkedIn, and YouTube pages. It appears on the first visit and can be reopened from
-the footer. The sticky navigation also includes the project credit and a YouTube link.
+the footer on either page. The navigation highlights the current page or section;
+on the scores page it also includes the project credit and a YouTube link.
 
 For example:
 

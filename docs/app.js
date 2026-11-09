@@ -13,16 +13,6 @@ const compareSearch = $("#compare-search");
 const primarySuggestions = $("#primary-suggestions");
 const compareSuggestions = $("#compare-suggestions");
 const results = $("#results");
-const aboutDialog = $("#about-dialog");
-
-function showAboutDialog() {
-  aboutDialog.showModal();
-}
-
-function dismissAboutDialog() {
-  aboutDialog.close();
-}
-
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>"']/g, (character) => ({
     "&": "&amp;",
@@ -596,20 +586,12 @@ function bindSearch(input, list) {
 }
 
 async function start() {
+  const initialDirectoryLink = window.location.hash === "#directory";
+  let userInterrupted = false;
+  const interrupt = () => { userInterrupted = true; };
+  const interactionEvents = ["pointerdown", "touchstart", "wheel", "keydown"];
+  interactionEvents.forEach((type) => window.addEventListener(type, interrupt, { passive: true }));
   try {
-    if (window.localStorage.getItem("skate-scores-about-seen") !== "true") {
-      showAboutDialog();
-    }
-    aboutDialog.addEventListener("close", () => {
-      window.localStorage.setItem("skate-scores-about-seen", "true");
-    });
-    $("#about-close").addEventListener("click", dismissAboutDialog);
-    $("#about-continue").addEventListener("click", dismissAboutDialog);
-    $("#about-open").addEventListener("click", showAboutDialog);
-    $("#about-open-footer").addEventListener("click", showAboutDialog);
-    aboutDialog.addEventListener("click", (event) => {
-      if (event.target === aboutDialog) dismissAboutDialog();
-    });
     const [indexResponse, siteResponse] = await Promise.all([
       fetch("./data/index.json"),
       fetch("./data/site.json"),
@@ -648,10 +630,15 @@ async function start() {
       if (event.key === "Escape") competitionFilter.open = false;
     });
     renderDirectory();
+    if (initialDirectoryLink && !userInterrupted && window.location.hash === "#directory") {
+      $("#directory").scrollIntoView({ block: "start" });
+    }
   } catch (error) {
     $("#dataset-note").textContent = "Dataset not built yet";
     results.innerHTML = `<p class="error-message">${escapeHtml(error.message)}</p>`;
     $("#directory-count").textContent = "To load skaters, run the site-data export command in the project README.";
+  } finally {
+    interactionEvents.forEach((type) => window.removeEventListener(type, interrupt));
   }
 }
 

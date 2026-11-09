@@ -8,19 +8,21 @@
       content="Explore figure-skating protocols and compare individual judge marks."
     />
     <title>Skate Scores — Figure skating protocols</title>
-    <link rel="icon" href="./favicon.png" type="image/png" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./styles.css" />
+    <script src="./site.js" defer></script>
     <script src="./app.js" defer></script>
   </head>
-  <body>
+  <body data-show-welcome>
     <header class="topbar">
       <a class="brand" href="./" aria-label="Skate Scores home">
         <span class="brand-mark" aria-hidden="true">S</span>
         <span>SKATE<span class="brand-light">SCORES</span></span>
       </a>
       <nav class="topbar-nav" aria-label="Main navigation">
-        <a href="#search">Compare scores</a>
+        <a href="#search" aria-current="location">Compare scores</a>
         <a href="#directory">Skaters</a>
+        <a href="./calculator.html">Program calculator</a>
       </nav>
       <div class="creator-menu">
         <button id="about-open" class="creator-open" type="button" aria-label="About Ice Skating Coach Nadin">

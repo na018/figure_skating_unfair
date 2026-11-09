@@ -179,6 +179,16 @@ button {
   color: var(--blue);
 }
 
+.topbar-nav a[aria-current] {
+  background: var(--blue-dark);
+  color: white;
+}
+
+.topbar-nav a[aria-current]:focus-visible {
+  outline: 2px solid var(--blue-dark);
+  outline-offset: 2px;
+}
+
 main {
   max-width: 1240px;
   margin: 0 auto;

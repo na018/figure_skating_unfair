@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Compare two hypothetical figure-skating programs." />
+    <title>Program calculator — Skate Scores</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./calculator.css" />
+    <script src="./site.js" defer></script>
+    <script src="./element-values.js" defer></script>
+    <script src="./calculator.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Skate Scores home">
+        <span class="brand-mark" aria-hidden="true">S</span>
+        <span>SKATE<span class="brand-light">SCORES</span></span>
+      </a>
+      <nav class="topbar-nav" aria-label="Main navigation">
+        <a href="./index.html#search">Compare scores</a>
+        <a href="./index.html#directory">Skaters</a>
+        <a href="./calculator.html" aria-current="page">Program calculator</a>
+      </nav>
+    </header>
+
+    <main class="calculator-main">
+      <section class="calculator-intro">
+        <p class="eyebrow">FIGURE SKATING · SCORE EXPLORER</p>
+        <h1>Build two programs.</h1>
+        <p>Explore how elements, execution, program components and deductions affect the final score.</p>
+        <p class="calculator-disclaimer"><strong>A planning estimate, not an official score.</strong> Element values are for ISU singles and pairs, 2026–27. This tool does not judge a panel, apply technical calls, validate program requirements, or automatically calculate bonuses and deductions.</p>
+      </section>
+
+      <section class="rules-panel" aria-labelledby="rules-title">
+        <h2 id="rules-title">Scoring resources · singles &amp; pairs, 2026–27</h2>
+        <p>ISU rules change by season and discipline; ice dance and synchronized skating have separate documents.</p>
+        <div class="rule-links">
+          <a href="https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Corporate-Site/Governance/Transparency/ISU-Communications/2788-SP-Levels-and-GOE-2026-Updated-MAY-19-1779351385-9626.pdf" target="_blank" rel="noopener noreferrer">GOE guidelines &amp; levels · ISU 2788 PDF ↗</a>
+          <a href="https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Corporate-Site/Governance/Transparency/ISU-Communications/2786-SinglesPairs-SOV-Update-260602-1780481099-6311.pdf" target="_blank" rel="noopener noreferrer">Base values, GOE points &amp; PCS factors · ISU 2786 PDF ↗</a>
+          <a href="https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Corporate-Site/Governance/Isu-Regulations/2026-FS---Pair-Sports-Rules-FINAL-20260513-1778685370-9916.pdf" target="_blank" rel="noopener noreferrer">Scoring and technical rules · ISU 2026 PDF ↗</a>
+          <a href="https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/sportrulesdisciplinecategory/pdf/Componentschartupdated2024July086344800_17327068456450.pdf" target="_blank" rel="noopener noreferrer">Program component criteria · ISU 2024 chart PDF ↗</a>
+          <a href="https://www.isu.org/en/isu-communications" target="_blank" rel="noopener noreferrer">ISU communications website ↗</a>
+          <a href="https://www.isu.org/en/figure-skating-rules/figure-skating-rule/handbooks-single-and-pair-skating" target="_blank" rel="noopener noreferrer">ISU singles &amp; pairs handbooks ↗</a>
+        </div>
+      </section>
+
+      <section class="calculator-instructions">
+        <h2>How to use it</h2>
+        <p>Search for an element by its ISU code and select it. Its base value and the points for your chosen GOE come from the ISU scale. For a clean jump combination or sequence, join two or three jump codes with <strong>+</strong>, for example <strong>3Lz+3T</strong>. Euler can be included between jumps, as in <strong>3F+Eu+3S</strong>.</p>
+        <p>Bonuses, repeated-jump reductions and special calls within combinations are not calculated. Enter a listed individual element with its technical-call code when applicable. The calculator does not check whether an element or combination is permitted in your program.</p>
+        <p>The estimate appears after you select an element, with GOE initially set to 0. Enter the three already-averaged component marks and the applicable factor to include PCS. Enter the number of falls and the deduction per fall; the default is 1 point per fall. This fixed-rate estimate does not automatically apply other deductions or changing fall penalties. Your inputs are not saved when you leave this page.</p>
+        <p>Judges assess composition, presentation and skating skills against the component criteria. In an actual competition, the panel's marks are averaged under ISU rules and multiplied by the applicable factor; a selected GOE here represents one hypothetical grade, not the panel's result.</p>
+      </section>
+
+      <div id="programs" class="program-grid"></div>
+      <section class="comparison-result" aria-live="polite">
+        <p class="eyebrow">SIDE BY SIDE</p>
+        <h2>Comparison</h2>
+        <p id="comparison">Complete both programs to compare their totals.</p>
+      </section>
+    </main>
+    <footer>
+      <span>Official judge marks · Sources linked on every protocol</span>
+      <div class="footer-links">
+        <span>Research dataset, not an official results service</span>
+        <a class="footer-email" href="mailto:ice.skating.x.pert@gmail.com">📩 ice.skating.x.pert@gmail.com</a>
+        <button id="about-open-footer" class="footer-about" type="button">About Nadin</button>
+      </div>
+    </footer>
+
+    <dialog id="about-dialog" class="about-dialog" aria-labelledby="about-title">
+      <div class="about-card">
+        <button id="about-close" class="about-close" type="button" aria-label="Close introduction">×</button>
+        <img class="about-photo" src="./assets/nadins-profile-picture.jpeg" alt="Nadin" />
+        <h2 id="about-title">Hi, I’m Nadin</h2>
+        <p>
+          I created Skate Scores to make figure-skating protocols easier to explore:
+          follow a skater’s results, inspect judge marks, and compare performances.
+        </p>
+        <p>If you find this project useful, I’d really appreciate your support ♡</p>
+        <div class="support-links" aria-label="Support and connect with Nadin">
+          <a href="https://ko-fi.com/nadin_loves_tech" target="_blank" rel="noopener noreferrer">
+            <span class="link-icon" aria-hidden="true">☕</span>
+            Buy Me a Coffee
+          </a>
+          <a href="https://www.linkedin.com/in/nadin-katrin-apel/" target="_blank" rel="noopener noreferrer">
+            <span class="link-icon linkedin-icon" aria-hidden="true">in</span>
+            LinkedIn
+          </a>
+          <a
+            class="about-youtube"
+            href="https://youtube.com/@coach-nadin?si=SeS7z-UTe4CuWq9K"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg class="youtube-icon" viewBox="0 0 24 17" aria-hidden="true">
+              <rect x="1" y="1" width="22" height="15" rx="4" />
+              <path d="M10 5.1 16 8.5 10 11.9Z" />
+            </svg>
+            <span>YouTube</span>
+          </a>
+        </div>
+        <button id="about-continue" class="about-continue" type="button">Continue to Skate Scores</button>
+      </div>
+    </dialog>
+  </body>
+</html>
