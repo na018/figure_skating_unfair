@@ -115,6 +115,15 @@ GRAND_PRIX_EVENTS = (
     ISUEvent(
         "gpf2025", "ISU Grand Prix Final 2025", "season2526", "gpf2025"
     ),
+    ISUEvent(
+        "gpfra2026", "ISU Grand Prix de France 2026", "season2627", "gpfra2026"
+    ),
+    ISUEvent(
+        "gpcan2026", "ISU Grand Prix Skate Canada 2026", "season2627", "gpcan2026"
+    ),
+    ISUEvent(
+        "gpchn2026", "ISU Grand Prix Cup of China 2026", "season2627", "gpchn2026"
+    ),
 )
 CHALLENGER_EVENTS = (
     ISUEvent(

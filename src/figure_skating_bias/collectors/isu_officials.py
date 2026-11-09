@@ -19,18 +19,10 @@ OFFICIALS_LIST_URLS = {
         "Corporate-Site/Governance/Transparency/ISU-Communications/"
         "2735-List-Officials-FS-ID-SYS-2025-26-1754294295-5479.pdf"
     ),
-}
-OFFICIALS_LIST_URLS = {
-    "season2122": None,
-    "season2425": (
-        "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/"
-        "isucommunications/pdf/"
-        "2663ListOfficialsFSIDSYS202425updatedOct3rd056185800_17328046745865.pdf"
-    ),
-    "season2526": (
+    "season2627": (
         "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/"
         "Corporate-Site/Governance/Transparency/ISU-Communications/"
-        "2735-List-Officials-FS-ID-SYS-2025-26-1754294295-5479.pdf"
+        "2816-List-Officials-FS-ID-SYS-2026-27-1787574191-9463.pdf"
     ),
 }
 

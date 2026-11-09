@@ -415,7 +415,7 @@ function comparisonTable(
   const totalPointsRow = kind === "component"
     ? `<tr class="total-row total-points-row"><th scope="row">Total Points</th><td>${formatTotal(firstPerformance?.total_segment_score)}</td><td>${formatTotal(secondPerformance?.total_segment_score)}</td></tr>`
     : "";
-  return `<div class="table-scroll"><table class="marks-table">
+  return `<div class="table-scroll"><table class="marks-table comparison-table comparison-table--${kind}">
     <thead><tr>
       <th>${kind === "element" ? "Element" : "Component"}</th>
       ${kind === "element" ? "<th>Skater 1 base value</th>" : ""}

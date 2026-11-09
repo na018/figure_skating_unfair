@@ -98,7 +98,8 @@ python -m figure_skating_bias.collectors.isu_results
 It discovers official per-skater judge-score PDFs from the ISU event indexes for the
 European and Four Continents Championships from 2022 through 2026, World Championships
 from 2022 and 2024 through 2026, the 2022 and 2026 Winter Olympics, and the supported
-ISU Grand Prix events from 2021 through 2025, and 23 Challenger Series events from 2021
+ISU Grand Prix events from 2021 through 2025 plus the 2026 Grand Prix de France,
+Skate Canada, and Cup of China, and 23 Challenger Series events from 2021
 through 2025 with verified per-skater protocols on official ISU or event-results hosts.
 External hosts are explicitly allowlisted per event and HTTPS is required. This is not
 yet a complete census of senior international events: some Challenger results use
@@ -122,7 +123,7 @@ performances and remain distinguishable from the individual Olympic events. They
 the same judge-mark schema; event-specific fields that do not apply are left blank.
 
 Collection requires an internet connection. The collector also downloads the ISU
-seasonal officials lists available for 2024/25 and 2025/26 and matches judge names to
+seasonal officials lists available for 2024/25, 2025/26, and 2026/27 and matches judge names to
 their listed member federations. `judge_nationality` preserves the panel label as
 published, while `judge_federation` contains the separate-list affiliation. A
 federation affiliation is not necessarily citizenship. The verified 2021/22 officials

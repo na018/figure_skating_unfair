@@ -15,6 +15,7 @@ from .isu_officials import _judge_federation, _judge_identity
 from .isu_sources import _segment
 
 NUMBER = re.compile(r"^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$")
+NATION = re.compile(r"^[A-Z]{3}\d*$")
 
 
 def _numeric(value: str) -> float | None:
@@ -53,7 +54,7 @@ def _entry_header(line: list[tuple[float, str]]) -> tuple[int, str, str] | None:
     )
     name_parts = [text for x, text in line if 55 <= x < 230]
     noc = next(
-        (text for x, text in line if 230 <= x < 320 and re.fullmatch(r"[A-Z]{3}", text)),
+        (text for x, text in line if 230 <= x < 320 and NATION.fullmatch(text)),
         None,
     )
     if rank is None or not name_parts or noc is None:
@@ -65,7 +66,7 @@ def _segment_scores(line: list[tuple[float, str]]) -> dict[str, float | None]:
     noc_x = next(
         (
             x for x, text in line
-            if 230 <= x < 320 and re.fullmatch(r"[A-Z]{3}", text)
+            if 230 <= x < 320 and NATION.fullmatch(text)
         ),
         None,
     )

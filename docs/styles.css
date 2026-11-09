@@ -711,6 +711,24 @@ h1 {
   text-transform: uppercase;
 }
 
+.marks-table thead th {
+  border-bottom: 2px solid #bdd8e8;
+}
+
+.comparison-table--element tr > :nth-child(6),
+.comparison-table--component tr > :nth-child(3) {
+  border-left: 2px solid #e6eef4;
+}
+
+.comparison-table .total-row > :nth-child(6),
+.comparison-table .total-row > :nth-child(3) {
+  border-left-color: #bdd8e8;
+}
+
+.comparison-table .total-points-row > :nth-child(3) {
+  border-left-color: #739bb6;
+}
+
 .marks-table .total-row {
   background: #edf6fb;
   font-weight: 700;

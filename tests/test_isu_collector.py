@@ -15,9 +15,11 @@ from figure_skating_bias.collectors.isu_officials import (
 from figure_skating_bias.collectors.isu_protocol import (
     _element_column_positions,
     _element_row,
+    _entry_header,
     _entry_identity,
     _lines,
     _parse_protocol,
+    _segment_scores,
 )
 from figure_skating_bias.collectors.isu_sources import (
     _judge_panel,
@@ -31,12 +33,13 @@ class ISUCollectorTests(unittest.TestCase):
         grand_prix_ids = [event.competition_id for event in GRAND_PRIX_EVENTS]
         target_ids = {event.competition_id for event in TARGET_EVENTS}
 
-        self.assertEqual(len(grand_prix_ids), 31)
+        self.assertEqual(len(grand_prix_ids), 34)
         self.assertEqual(len(grand_prix_ids), len(set(grand_prix_ids)))
         self.assertTrue(set(grand_prix_ids).issubset(target_ids))
         self.assertNotIn("gpjpn2021", target_ids)
         self.assertNotIn("gpjpn2022", target_ids)
         self.assertNotIn("gpjpn2023", target_ids)
+        self.assertTrue({"gpfra2026", "gpcan2026", "gpchn2026"}.issubset(target_ids))
 
     def test_supported_challenger_events_have_explicit_official_sources(self) -> None:
         challenger_ids = {event.competition_id for event in CHALLENGER_EVENTS}
@@ -73,6 +76,20 @@ class ISUCollectorTests(unittest.TestCase):
             _entry_identity("Léa HÉRITIER", "FRA"),
             _entry_identity("Heritier Lea", "FRA"),
         )
+
+    def test_neutral_athlete_nation_with_number_is_an_entry_header(self) -> None:
+        line = [
+            (52.0, "2"), (62.0, "Aleksandra"), (100.0, "BOIKOVA"),
+            (133.0, "/"), (137.0, "Dmitrii"), (160.0, "KOZLOVSKII"),
+            (266.0, "AIN2"), (347.0, "3"), (383.0, "75.85"),
+            (433.0, "42.21"), (495.0, "33.64"), (556.0, "0.00"),
+        ]
+
+        self.assertEqual(
+            _entry_header(line),
+            (2, "Aleksandra BOIKOVA / Dmitrii KOZLOVSKII", "AIN2"),
+        )
+        self.assertEqual(_segment_scores(line)["total_segment_score"], 75.85)
 
     def test_discovers_individual_and_team_event_pdfs(self) -> None:
         index_url = "https://results.isu.org/results/season2526/owg2026/index.htm"

@@ -30,7 +30,8 @@ The repeatable ISU collector is available as
 `python -m figure_skating_bias.collectors.isu_results`. It collects European and Four
 Continents Championships from 2022 through 2026, World Championships from 2022 and 2024
 through 2026, the 2022 and 2026 Winter Olympics, and the supported ISU Grand Prix events
-from 2021 through 2025, and 23 Challenger Series events from 2021 through 2025 whose
+from 2021 through 2025 plus the 2026 Grand Prix de France, Skate Canada, and Cup of
+China, and 23 Challenger Series events from 2021 through 2025 whose
 official result pages provide compatible per-skater protocols. Non-ISU event-results
 hosts are explicitly allowlisted per event and HTTPS is required. This is not a complete
 census of senior international competitions: some Challenger results use combined PDFs,
@@ -44,9 +45,9 @@ to `processed/judge_marks.csv`.
 
 ## What is and is not included
 
-The current dataset contains 70 configured competition IDs and 635 per-skater judge-score
-PDFs (319 short/rhythm-segment PDFs and 316 free-segment PDFs). The protocol set includes
-533 individual senior, 74 junior, and 12 advanced-novice PDFs, plus eight team-event
+The current dataset contains 73 configured competition IDs and 659 per-skater judge-score
+PDFs (331 short/rhythm-segment PDFs and 328 free-segment PDFs). The protocol set includes
+557 individual senior, 74 junior, and 12 advanced-novice PDFs, plus eight team-event
 protocols from each of the 2022 and 2026 Olympics. It includes individual judge marks
 only when an event index links to a per-skater protocol PDF the parser can read and an
 official segment panel page identifies the judges in its J-number columns.
@@ -61,8 +62,8 @@ matching is separate from identifying the judge on the event panel. Judge nation
 is the panel label; judge federation is the affiliation listed in the officials data.
 
 Segment coverage is not identical for every event and discipline. Among senior protocols,
-short and free segments are present for 68 competitions each in men’s singles and
-women’s singles, for 65 and 64 competitions respectively in pairs, and for 66
+short and free segments are present for 71 competitions each in men’s singles and
+women’s singles, for 68 and 67 competitions respectively in pairs, and for 69
 competitions each in ice dance. Junior and advanced-novice events are also present and
 are kept separate from senior segments in the database. A missing discipline/segment
 means no parsed marks are available for that combination; it does not mean the segment
@@ -102,7 +103,7 @@ SQLite is the local/build-time source of truth. A GitHub Pages site is static an
 run server-side SQLite queries, so a future site should publish generated JSON search
 indexes and per-skater result files from this database rather than ask browsers to
 download the entire database. The static site in `docs/` includes a searchable index of
-1,117 skater/team entries and their per-entry protocols; generate or refresh the JSON
+1,125 skater/team entries and their per-entry protocols; generate or refresh the JSON
 files with `python -m figure_skating_bias.site_export`. The database is only used
 locally to prepare the static files; no database hosting is needed.
 
